@@ -1,5 +1,6 @@
 import os
 import time
+from typing import Any, List, Optional
 
 import requests
 from bs4 import BeautifulSoup
@@ -8,7 +9,13 @@ from app.models.pydantic.product import ProductModel
 
 
 class Scrapper:
-    def __init__(self, base_url, proxy=None, max_retries=3, retry_delay=10):
+    def __init__(
+        self,
+        base_url: str,
+        proxy: Optional[str] = "",
+        max_retries: int = 3,
+        retry_delay: int = 10,
+    ):
         self.base_url = base_url
         self.proxy = proxy
         self.max_retries = max_retries
@@ -16,7 +23,7 @@ class Scrapper:
         self.image_dir = "images"
         os.makedirs(self.image_dir, exist_ok=True)  # Ensure image directory exists
 
-    def scrape_page(self, page_num):
+    def scrape_page(self, page_num: int):
         url = f"{self.base_url}/page/{page_num}"
         headers = {
             "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3"
@@ -50,7 +57,7 @@ class Scrapper:
                     )
 
         soup = BeautifulSoup(response.content, "html.parser")
-        products = []
+        products: List[Any] = []
 
         for product_item in soup.select(".products"):
             title_elem = product_item.select_one("h2.woo-loop-product__title a")

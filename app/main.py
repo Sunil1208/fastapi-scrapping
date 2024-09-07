@@ -1,8 +1,9 @@
-from fastapi import FastAPI, Request, Query
+from fastapi import FastAPI, Query, Request
 
 from app.auth.auth import authenticator
 from app.config import BASE_URL
-from app.models.pydantic.product import ProductModel
+
+# from app.models.pydantic.product import ProductModel
 from app.services.cache import CacheClient
 from app.services.database import DatabaseClient
 from app.services.notification import Notification
@@ -58,7 +59,7 @@ class ScrappingService:
 async def scrape(
     request: Request,
     limit: int = 5,
-    proxy: str = None,
+    proxy: str = "",
     max_retries: int = Query(3, ge=1),
     retry_delay: int = Query(5, ge=1),
 ):

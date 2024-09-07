@@ -1,5 +1,7 @@
-from fastapi import Request, HTTPException
 from functools import wraps
+
+from fastapi import HTTPException, Request
+
 from app.config import TOKEN
 
 
