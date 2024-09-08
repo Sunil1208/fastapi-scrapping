@@ -1,0 +1,10 @@
+[tool.poetry]
+name = "Dental Product Scraper with FastAPI and BeautifulSoup"
+version = "0.1.0"
+description = "A FastAPI-based web scraping tool designed to extract dental product details including titles, prices, and images from the Dental Stall website. Utilizes BeautifulSoup for HTML parsing and supports proxy configurations, retry mechanisms, and customizable scraping limits. Results are returned in JSON format with image downloads and error handling."
+authors = ["Sunil Kumar skmy03@gmail.com"]
+license = "MIT"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+pre-commit = "^3.0.0"
