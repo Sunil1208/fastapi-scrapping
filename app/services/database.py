@@ -1,11 +1,12 @@
 import json
 import os
+from typing import Any
 
 from app.models.pydantic.product import ProductModel
 
 
 class DatabaseClient:
-    def __init__(self, file_path="scrapped_data.json"):
+    def __init__(self, file_path: str = "scrapped_data.json"):
         self.file_path = file_path
         if not os.path.exists(self.file_path):
             self._initialize_db()
@@ -19,6 +20,6 @@ class DatabaseClient:
             data = json.load(db_file)
             return [ProductModel(**item) for item in data]
 
-    def save_data(self, data):
+    def save_data(self, data: Any):
         with open(self.file_path, "w") as f:
             json.dump([item.dict() for item in data], f, indent=4)
