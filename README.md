@@ -107,7 +107,7 @@ This tool automates the process of scraping product data from [Dental Stall](htt
     venv\Scripts\activate  # Windows
 
 ### 3. Install Dependencies
-`pip install -r requirements.txt`
+    pip install -r requirements.txt
 
 ### 4. Setup Pre-commit Hooks
 The project uses pre-commit hooks for automating linting and formatting checks before every commit.
@@ -127,34 +127,36 @@ The `.pre-commit-config.yaml` file in this project contains the following hooks:
 
 Run the `setup_hooks.sh` script to install and configure the pre-commit hooks:
 
-`bash setup_hooks.sh`
+    bash setup_hooks.sh
 
 Alternatively, run the following commands:
 
-`pip install pre-commit`
-`pre-commit install`
+    pip install pre-commit
+    pre-commit install
 
 You can check your files for compliance using:
-`pre-commit run --all-files`
+    pre-commit run --all-files
 
 ### 5. Configure Flake8
 
 `Flake8` is used for linting, and the configuration is in `.flake8`:
 
-`[flake8]
+```bash
+[flake8]
 max-line-length = 200
-ignore = E203, W503`
+ignore = E203, W503
+```
 
 -   **max-line-length**: Set to 200 characters to allow more flexibility in long lines.
 -   **ignore**: Ignores specific PEP8 warnings that are in conflict with `black`.
 
 To run `flake8` manually:
 
-`flake8 .`
+    flake8 .
 
 ## Running the Project
 
-`uvicorn app.main:app --reload`
+    uvicorn app.main:app --reload
 
 The FastAPI server will be running at [http://127.0.0.1:8000/](http://127.0.0.1:8000/)
 
@@ -174,7 +176,7 @@ You can access the scraping endpoint at [http://127.0.0.1:8000/scrape](http://12
 -   The pre-commit hooks will automatically run before you commit your changes.
 -   If you want to check all files, run:
 
-`pre-commit run --all-files`
+        pre-commit run --all-files
 
 This ensures your code meets all style and quality guidelines before pushing it to the repository.
 
@@ -188,6 +190,12 @@ The project follows a modular and object-oriented approach. Here's a simplified 
 4.  The **Scrapper** class makes HTTP requests to the target website and parses the HTML using **BeautifulSoup**.
 5.  The product data (name, price, and image) is cached and stored in the database (local JSON file).
 6.  A **Notification** is sent to the console after the process completes, reporting how many products were scraped and updated.
+
+### Sample Curl
+```bash
+curl --location 'http://localhost:8000/scrape?limit=5' \
+--header 'Authorization: Bearer static_token'
+```
 
 ## Mermaid Diagram
 
