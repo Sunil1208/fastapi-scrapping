@@ -23,6 +23,8 @@ async def scrape(
     proxy: str = "",
     max_retries: int = Query(3, ge=1),
     retry_delay: int = Query(5, ge=1),
+    return_all_scraped_data: bool = False,
+    return_current_scraped_data: bool = False,
 ):
     scraper = Scrapper(
         base_url=BASE_URL, proxy=proxy, max_retries=max_retries, retry_delay=retry_delay
@@ -33,6 +35,12 @@ async def scrape(
 
     # Initialize and run the scraping service
     scrapping_service = ScrappingService(scraper, db_client, cache_client, notifier)
-    scrapping_service.run_scraping(page_limit=limit)
+    scraped_data = scrapping_service.run_scraping(
+        page_limit=limit, return_scraped_data=return_current_scraped_data
+    )
+    if return_current_scraped_data:
+        return scraped_data
+    if return_all_scraped_data:
+        return scrapping_service.get_all_products()
 
     return {"message": "Scraping completed successfully!"}
