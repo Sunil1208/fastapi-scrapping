@@ -193,7 +193,7 @@ The project follows a modular and object-oriented approach. Here's a simplified 
 
 ### Sample Curl
 ```bash
-curl --location 'http://localhost:8000/scrape?limit=5' \
+curl --location 'http://localhost:8000/scrape?limit=10&max_retries=1&retry_delay=2&return_all_scraped_data=True&return_current_scraped_data=False' \
 --header 'Authorization: Bearer static_token'
 ```
 

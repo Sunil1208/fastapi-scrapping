@@ -20,7 +20,7 @@ class ScrappingService:
         self.cache_client = cache_client
         self.notifier = notifier
 
-    def run_scraping(self, page_limit: int):
+    def run_scraping(self, page_limit: int, return_scraped_data: bool = False):
         all_products: List[ProductModel] = []
         for page_num in range(1, page_limit + 1):
             try:
@@ -30,6 +30,9 @@ class ScrappingService:
                 print(f"Error scrapping page {page_num}: {e}")
                 continue
         self._process_scraped_data(all_products)
+        if return_scraped_data:
+            return all_products
+        return None
 
     def _process_scraped_data(self, products: List[ProductModel]):
         updated_count = 0
@@ -52,3 +55,7 @@ class ScrappingService:
 
         self.db_client.save_data(existing_data)
         self.notifier.notify(len(products), updated_count)
+
+    def get_all_products(self) -> List[ProductModel]:
+        existing_data: List[ProductModel] = self.db_client.load_data()
+        return existing_data
