@@ -80,6 +80,7 @@ This tool automates the process of scraping product data from [Dental Stall](htt
 ├── .flake8                   # Flake8 configuration file
 ├── pre-commit-config.yaml     # Pre-commit hooks configuration
 └── setup_hooks.sh            # Setup script for installing pre-commit hooks
+├── config.yaml               # Config file which stores token and target scraping website.
 
 ```
 
@@ -154,6 +155,13 @@ To run `flake8` manually:
 
     flake8 .
 
+### 6. Add a config.yaml file in the root directory
+```bash
+token: "static_token"
+base_url: "https://dentalstall.com/shop"
+```
+**Please note that project won't run without this file present as it's designed to use the config for authentication and scrapping process.**
+
 ## Running the Project
 
     uvicorn app.main:app --reload
@@ -219,3 +227,6 @@ graph TD;
 -   **Notifications**: Expand the notification system to send emails or messages via other communication channels.
 -   **Scalable storage**: Replace the JSON-based database with a scalable solution such as PostgreSQL or MongoDB.
 -   **Improved error handling**: Handle more edge cases, such as network failures, and log them.
+
+## Notes:
+Please add a config.
